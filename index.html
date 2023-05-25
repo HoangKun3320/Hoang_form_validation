@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>form validation</title>
+  <link rel="stylesheet" href="../Hoang_form_validation/css.css">
+</head>
+
+<body>
+  <div class="main">
+
+    <form action="" method="POST" class="form" id="form-1">
+      <h3 class="heading">アカウントを作成</h3>
+      <p class="desc">Product By ❤️</p>
+
+      <div class="spacer"></div>
+
+      <div class="form-group">
+        <label for="fullname" class="form-label">氏名</label>
+        <input id="fullname" name="fullname" type="text" placeholder="氏名（例 : Tanaka Kirato）" class="form-control">
+        <span class="form-message"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">メールアドレス</label>
+        <input id="email" name="email" type="text" placeholder="tanaka123@gmail.com" class="form-control">
+        <span class="form-message"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="password" class="form-label">パスワード</label>
+        <input id="password" name="password" type="password" placeholder="パスワード" class="form-control">
+        <span class="form-message"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="password_confirmation" class="form-label">もう一度パスワードを入力してください</label>
+        <input id="password_confirmation" name="password_confirmation" placeholder="もう一度パスワード" type="password"
+          class="form-control">
+        <span class="form-message"></span>
+      </div>
+
+      <button class="form-submit">次に進む</button>
+    </form>
+    <div>
+      <script src="./validation.js"></script>
+      <script>
+        // 希望すること
+        Validator({
+          form: '#form-1',
+          formGroupSelector: '.form-group',
+          errorSelector: '.form-message',
+          rules: [
+            Validator.isRequired('#fullname'),
+            // Validator.isRequired('#email'),
+            Validator.isEmail('#email'),
+            Validator.minLength('#password', 6),
+            Validator.isRequired('#password_confirmation'),
+            Validator.isConfirmed('#password_confirmation', function () {
+              return document.querySelector('#form-1 #password').value;
+            }, 'パスワードが一致しません')
+          ],
+          onSubmit: function () {
+            //Call API
+            console.log('ありがとうございました。');
+          }
+        });
+      </script>
+    </div>
+
+  </div>
+</body>
+
+</html>
